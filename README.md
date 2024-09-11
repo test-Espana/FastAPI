@@ -5,6 +5,8 @@ or
 `docker-compose up -d`
 
 ## fastAPI操作
+.envファイル個別で渡します
+
 http://localhost:8080/
 <!-- ここにアクセスすると表示される -->
 
