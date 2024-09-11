@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  web:
+    build: ./fastapi
+    container_name: fastapi
+    ports:
+      - 8080:8080 
+    volumes:
+      - ./fastapi/app:/app
+    environment:
+      - ENVIRON
+    
+
+  mysql:
+    image: mysql
+    platform: linux/amd64
+    container_name: mysql-container
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: demo
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
