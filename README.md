@@ -4,10 +4,15 @@
 or
 `docker-compose up -d`
 
+## Dockerコンテナ停止
+- docker-compose upの場合 → `control^+c`
+- docker-compose up -dの場合 → `docker-compose down`
+
 ## fastAPI操作
 .envファイル個別で渡します
 
-http://localhost:8080/
+### プレビュー表示
+> http://localhost:8080/
 <!-- ここにアクセスすると表示される -->
 
 fastapiコンテナの中に入りたい時は
