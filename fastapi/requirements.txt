@@ -4,3 +4,4 @@ mysql-connector-python
 sqlalchemy
 jinja2
 python-dotenv
+python-multipart

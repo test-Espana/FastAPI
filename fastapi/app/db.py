@@ -37,6 +37,17 @@ session = scoped_session(
     )
 )
 
+
+# セッションを生成する関数
+def get_db():
+    db = session()
+    try:
+        yield db
+    finally:
+        db.close()
+
+        
 # Base クラスの設定
 Base = declarative_base()
 Base.query = session.query_property()
+
