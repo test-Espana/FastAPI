@@ -38,6 +38,10 @@
                 const audioPlayer = document.getElementById("audioPlayer");
                 audioPlayer.load(); // 新しい音声ファイルをロード
                 audioPlayer.play(); // 自動的に再生
+                //音声の再生が終わった後、再生した音声ファイルを削除するためのフラグを立てる
+                audioPlayer.addEventListener("ended",() => {
+                    
+                })
             } else {
                 alert("Failed to generate voice");
             }
