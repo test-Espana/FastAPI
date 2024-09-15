@@ -25,3 +25,9 @@ services:
     volumes:
       - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    
+  voicevox_engine:
+    image: voicevox/voicevox_engine
+    container_name: voicevox_engine
+    ports:
+      - "50021:50021"

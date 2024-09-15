@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech</title>
+</head>
+<body>
+    <h1>Text to Speech</h1>
+    <form id="ttsForm" action="/create_voice_from_text/" method="post">
+        <label for="text">Enter Text:</label><br>
+        <textarea id="text" name="text" rows="4" cols="50"></textarea><br><br>
+        <button type="submit">Convert to Voice</button>
+    </form>
+
+    <h2>Generated Audio:</h2>
+    <audio id="audioPlayer" controls>
+        <source id="audioSource" src="" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const form = document.getElementById("ttsForm");
+        form.addEventListener("submit", async function(event) {
+            event.preventDefault(); // フォームのデフォルトの動作を防ぐ
+
+            const formData = new FormData(form);
+            const response = await fetch("/create_voice_from_text/", {
+                method: "POST",
+                body: formData
+            });
+
+            if (response.ok) {
+                const audioUrl = window.URL.createObjectURL(await response.blob());
+                const audioSource = document.getElementById("audioSource");
+                audioSource.src = audioUrl;
+
+                const audioPlayer = document.getElementById("audioPlayer");
+                audioPlayer.load(); // 新しい音声ファイルをロード
+                audioPlayer.play(); // 自動的に再生
+            } else {
+                alert("Failed to generate voice");
+            }
+        });
+    </script>
+</body>
+</html>

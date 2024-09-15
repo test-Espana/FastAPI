@@ -5,3 +5,9 @@ sqlalchemy
 jinja2
 python-dotenv
 python-multipart
+simpleaudio
+requests
+librosa
+soundfile
+audioread
+pyaudio
