@@ -3,9 +3,17 @@ from fastapi import FastAPI, Request, Form, Depends
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
+
+from fastapi.responses import HTMLResponse, FileResponse
+import requests
+
 from db import get_db
 from model import User
 from login import process_login   # login.pyから関数をインポート
+
+
+from voice import synthesize_voice
+from voice_utils import create_voice_from_text
 
 
 app = FastAPI()
@@ -63,3 +71,11 @@ def login_check(username: str = Form(...), password: str = Form(...), admin: boo
     print("admin:",admin)
     result = process_login(username, password, db)
     return result
+
+@app.get("/get_voice", response_class=HTMLResponse)
+async def get_form(request: Request):
+    return templates.TemplateResponse("voice.html", {"request": request})
+
+@app.post("/create_voice_from_text/")
+async def create_voice_from_text_endpoint(text: str = Form(...)):
+    return await create_voice_from_text(text)
