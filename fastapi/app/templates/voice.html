@@ -20,32 +20,71 @@
     </audio>
 
     <script>
-        const form = document.getElementById("ttsForm");
-        form.addEventListener("submit", async function(event) {
-            event.preventDefault(); // フォームのデフォルトの動作を防ぐ
+         // フォームの送信イベントをキャッチしてページ遷移を防ぐ
+         document.getElementById('ttsForm').addEventListener('submit', async function(event) {
+            event.preventDefault();  // ページ遷移を防ぐ
 
-            const formData = new FormData(form);
-            const response = await fetch("/create_voice_from_text/", {
-                method: "POST",
-                body: formData
-            });
+            // フォームデータを取得
+            const formData = new FormData(this);
+            const text = formData.get('text');  // テキストエリアの内容を取得
 
-            if (response.ok) {
-                const audioUrl = window.URL.createObjectURL(await response.blob());
-                const audioSource = document.getElementById("audioSource");
-                audioSource.src = audioUrl;
-
-                const audioPlayer = document.getElementById("audioPlayer");
-                audioPlayer.load(); // 新しい音声ファイルをロード
-                audioPlayer.play(); // 自動的に再生
-                //音声の再生が終わった後、再生した音声ファイルを削除するためのフラグを立てる
-                audioPlayer.addEventListener("ended",() => {
-                    
-                })
-            } else {
-                alert("Failed to generate voice");
+            // サーバーにPOSTリクエストを送信
+            try {
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                });
+                const receiveAIcomment = await fetchAIComment();
+                const aiCommentData = await receiveAIcomment.json();
+                const aiComment = aiCommentData.comment;
+                print(aiComment);
+                const uttr = new SpeechSynthesisUtterance(aiComment);
+                speechSynthesis.speak(uttr);
+                console.log('サーバーのレスポンス:', result);
+            } catch (error) {
+                console.error('エラーが発生しました:', error);
             }
         });
+        //フロントでの音声処理
+        // async function fetchAIComment() {
+        //     try {
+        //         const response = fetch('/responceAIcomment'); //現在テストのためただの文字列を転送しているためawaitをつけていない
+        //         const data = response.json();
+        //         const aiComment = data.comment;
+        //         const uttr = new SpeechSynthesisUtterance(aiComment);
+        //         speechSynthesis.speak(uttr);
+        //     } catch (error) {
+        //         console.error("エラーが発生しました: ", error);
+        //     }
+        // }
+
+        //バックエンド側での処理を実行しようとしていたものの遺物
+        // const form = document.getElementById("ttsForm");
+        // form.addEventListener("submit", async function(event) {
+        //     event.preventDefault(); // フォームのデフォルトの動作を防ぐ
+
+        //     const formData = new FormData(form);
+        //     const response = await fetch("/create_voice_from_text/", {
+        //         method: "POST",
+        //         body: formData
+        //     });
+
+        //     if (response.ok) {
+        //         const audioUrl = window.URL.createObjectURL(await response.blob());
+        //         const audioSource = document.getElementById("audioSource");
+        //         audioSource.src = audioUrl;
+
+        //         const audioPlayer = document.getElementById("audioPlayer");
+        //         audioPlayer.load(); // 新しい音声ファイルをロード
+        //         audioPlayer.play(); // 自動的に再生
+        //         //音声の再生が終わった後、再生した音声ファイルを削除するためのフラグを立てる
+        //         audioPlayer.addEventListener("ended",() => {
+                    
+        //         })
+        //     } else {
+        //         alert("Failed to generate voice");
+        //     }
+        // });
     </script>
 </body>
 </html>

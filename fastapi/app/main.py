@@ -2,7 +2,9 @@ from typing import Union
 from fastapi import FastAPI, Request, Form, Depends
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
+import json
 
 from fastapi.responses import HTMLResponse, FileResponse
 # import requests
@@ -15,6 +17,8 @@ from login import process_login   # login.pyから関数をインポート
 # from voice import synthesize_voice
 from voice_utils import create_voice_from_text
 
+#グローバル変数
+global convert_text #AIに渡すテキストをテスト用にグローバル変数に代入している変数。実装時にはこれをAI側に渡すよう変更
 
 app = FastAPI()
 
@@ -73,9 +77,20 @@ def login_check(username: str = Form(...), password: str = Form(...), admin: boo
     return result
 
 #バックエンド側で音声処理を行なっていた名残。記録として残しておく
-# @app.get("/get_voice", response_class=HTMLResponse)
-# async def get_form(request: Request):
-#     return templates.TemplateResponse("voice.html", {"request": request})
-# @app.post("/create_voice_from_text/")
-# async def create_voice_from_text_endpoint(text: str = Form(...)):
-#     return await create_voice_from_text(text)
+@app.get("/get_voice", response_class=HTMLResponse)
+async def get_form(request: Request):
+    return templates.TemplateResponse("voice.html", {"request": request})
+
+@app.post("/create_voice_from_text/")
+async def create_voice_from_text_endpoint(text: str = Form(...)):
+    convert_text = text
+    return convert_text
+
+#AIからのコメントを取得してhtml側に渡す（現在はcreate_voice_from_textのテキストを転送しているだけ）
+@app.get("/responceAIcomment")
+async def responceAIcomment():
+    convert_text
+    print(convert_text)
+    return JSONResponse(content={"comment": convert_text})
+
+#今後の作業：ルーティング（最初のアクセス時にloginへ飛ばし、その後結果に応じて各htmlへ遷移するようにする。管理者のみ要素が多いため、htmlの相互リンクを作る。）
