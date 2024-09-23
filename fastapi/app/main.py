@@ -169,7 +169,25 @@ def sns_output(startDate: date = Query(...), endDate: date = Query(...)):
 def delete_history(startDate: date = Query(...), endDate: date = Query(...)):
     return {"admin": "delete_history", "startDate": startDate, "endDate": endDate}
 
+# SCPの方の音声合成
 @app.get("/voiceop")
 def show_voice_output(request: Request):
     context = {"request": request, "message": "Hello voice"}
     return templates.TemplateResponse("voiceOP.html", context)
+
+# ペンギンの音声合成
+@app.get("/voice")
+def show_voice_output(request: Request):
+    context = {"request": request, "message": "Hello voice"}
+    return templates.TemplateResponse("voice.html", context)
+
+# リクエストデータのスキーマを定義
+class TextData(BaseModel):
+    text: str
+
+@app.post("/process_text")
+async def process_text(data: TextData):
+    # 受け取ったテキストを処理する
+    # ここでは、受け取ったテキストをそのまま返します
+    print(data.text)
+    return {"message": f"受け取ったテキスト: {data.text}"}
