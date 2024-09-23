@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat UI</title>
+    <link href="{{ url_for('static', path='css/talk_screen.css') }}" rel="stylesheet">
+</head>
+<body class="back_screen">
+    <div class="header">
+        <div class="hamburger"></div>
+    </div>
+    
+    
+    <div class="chat-area">
+        <!-- <h1>チャット履歴</h1> -->
+        {% for chat in conversations %}
+            {% if chat.sender == 'AI' %}
+                <div class="message ai">
+                    <div class="icon ai"></div>
+                    <div class="text">{{ chat.message }}</div>
+                </div>
+            {% else %}
+                <div class="message you">
+                    <div class="icon you"></div>
+                    <div class="text">{{ chat.message }}</div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    
+    <div class="footer">
+        <div></div>
+        <div class="microphone">
+            <canvas id="AudioWave" width="150" height="150"></canvas>
+        </div>
+        <div></div>
+    </div>
+
+    <script src="/static/js/talk_screen.js"></script>
+</body>
+</html>

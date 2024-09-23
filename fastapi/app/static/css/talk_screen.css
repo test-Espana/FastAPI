@@ -1,0 +1,153 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh; 
+}
+
+/* 朝のスタイル */
+body.morning {
+    /* background: linear-gradient(to bottom, #4c68d7, #8ecdf7); */
+    background: linear-gradient(to bottom, #4f64a8, #88d4dd);
+}
+/* 昼のスタイル */
+body.afternoon {
+    background: linear-gradient(to bottom, #4f64a8, #88de3d);
+}
+/* 夜のスタイル */
+body.evening {
+    background: linear-gradient(to bottom, #7270ea, #945f62);
+}
+
+/* ヘッダー（ハンバーガーメニュー） */
+.header {
+    width: 100%;
+    background-color: #2e3d58;
+    height: 10%; /* 高さを割合で指定 */
+    display: flex;
+    align-items: center;
+    padding: 0 5vw; /* パディングを相対値で指定 */
+}
+
+.hamburger {
+    width: 7vw;
+    height: 3px;
+    background-color: white;
+    position: relative;
+    display: inline-block;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    left: 0;
+}
+
+.hamburger::before {
+    top: -10px;
+}
+
+.hamburger::after {
+    bottom: -10px;
+}
+
+/* チャットエリア */
+.chat-area {
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 5vw;
+    box-sizing: border-box;
+    background-color: transparent; /* 背景を透明にする */
+}
+
+/* 吹き出し */
+.message {
+    max-width: 70%;
+    padding: 2vw;
+    border-radius: 20px;
+    margin-bottom: 2vw;
+    position: relative;
+    background-color: #f1f1f1;
+    display: flex;
+    align-items: center;
+}
+
+.message.ai {
+    align-self: flex-start;
+}
+
+.message.you {
+    align-self: flex-end;
+    background-color: #e3e3e3;
+}
+
+.message .icon {
+    width: 8vw;
+    height: 8vw;
+    border-radius: 50%;
+    margin-right: 2vw;
+}
+
+.icon.ai {
+    background-color: #60d1f6;
+}
+
+.icon.you {
+    background-color: #f7c359;
+}
+
+/* フッター */
+.footer {
+    width: 100%;
+    background-color: #2e3d58;
+    height: 15%; /* フッターの高さを適切に指定 */
+    /* display: flex;  */
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    /* justify-content: center; 
+    align-items: center;  */
+}
+
+/* 黄緑色の大きな丸 (外側の丸) */
+.microphone {
+    width: 100px;
+    height: 100px;
+    margin: auto auto;
+    background-color: #6ad08b; /* 黄緑色 */
+    border-radius: 50%; /* 丸にする */
+    display: flex; /* 内部の要素も中央揃え */
+}
+
+/* キャンバスの波形描画エリア */
+#AudioWave {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* メディアクエリ */
+@media screen and (max-width: 600px) {
+    /* 小さい画面でのスタイル調整 */
+    .footer {
+        padding: 10vw;
+    }
+
+    .microphone {
+        width: 25vw;
+        height: 25vw;
+    }
+
+    .microphone::before {
+        width: 12vw;
+        height: 12vw;
+    }
+}

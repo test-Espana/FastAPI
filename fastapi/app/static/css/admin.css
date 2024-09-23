@@ -1,0 +1,98 @@
+body {
+    height: 100vh; /* ビューポート全体の高さ */
+    margin: 0;
+    background-image: url("/static/images/adminbd1.png");
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column; /* ヘッダーとフォームを縦に並べる */
+    align-items: center;
+    font-family: serif,monospace,sans-serif, "MS Pゴシック",;
+}
+
+
+/* リストのスタイルをリセット */
+li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* メニュー項目を選択した状態のスタイル（任意で追加可能） */
+button.selected {
+    background-color: #6a7fb0; /* 選択中のボタンの背景色 */
+    font-weight: bold;
+}
+
+/* サイドメニュー全体のスタイル */
+.sidebar {
+    position: fixed; /* 左端に固定 */
+    left: 0; /* 左端に寄せる */
+    top: 0; /* 上端から始める */
+    width: 350px; /* サイドメニューの幅 */
+    height: 100vh; /* ビューポート全体の高さ */
+    background-color: #e6e6e6; /* サイドメニューの背景色 */
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    list-style-type: none;
+    justify-content: start; /* ボタンを上に寄せる */
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+/* サイドメニュー内のリストのスタイル */
+.sidebar ul {
+    list-style-type: none;
+    margin: 20px;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 15px; /* 下に15pxの余白を追加 */
+}
+
+
+/* ボタンのスタイル */
+.sidebar button {
+    width: 100%; /* サイドメニュー内でボタンを全幅に */
+    padding: 15px;
+    margin: 0;
+    background-color: #fff;
+    color: #000;
+    border: none;
+    border-radius: 10px;
+    text-align: left; /* テキストを左寄せ */
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-bottom: 1px solid #ffffff33; /* ボタン間のボーダー */
+}
+
+/* ボタンホバー時のスタイル */
+.sidebar button:hover {
+    background: linear-gradient(135deg, #70a1e4, #d9b5d6); /* ボタンがホバーされた時の背景色 */
+}
+
+/* 選択状態のボタン（任意） */
+/* .sidebar button.selected {
+    background: linear-gradient(135deg, #4c68d7, #8ecdf7); 
+    font-weight: bold;
+} */
+
+.date_box {
+    padding: 0.5em 1em;
+    margin: 3em 0;
+    color: #2c2c2f;
+    border-radius: 10px;
+    background: #fff;
+}
+.date_box p {
+    margin: 0; 
+    padding: 0;
+}
+
+.date_box h1 {
+    border-bottom: 2px solid #70a1e4; /* 下に2pxの黒いボーダー */
+    padding-bottom: 0px; /* ボーダーとテキストの間に余白を追加 */
+    margin-bottom: 0px; /* 下の要素との余白 */
+}
+

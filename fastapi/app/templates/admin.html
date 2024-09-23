@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdminControl</title>
+    <link href="{{ url_for('static', path='css/admin.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="sidebar"> <!-- サイドメニューを囲むdivにクラスを追加 -->
+        <ul>
+            <li>
+                <div class="date_box">
+                    <h1>期間指定</h1>
+                    <h4>操作を適応する期間を指定</h4>
+                    <form id="dateForm" action="/dateForm" method="post">
+                        <label for="startDate">開始日:</label>
+                        <input type="date" id="startDate" name="startDate"><br><br>
+                        <label for="endDate">終了日:</label>
+                        <input type="date" id="endDate" name="endDate"><br><br>
+                    </form>
+                </div>
+            </li>
+    
+            <li>
+                <button onclick="submitForm('/download_report')">報告書の出力/ダウンロード</button>
+            </li>
+    
+            <li>
+                <button onclick="submitForm('/sns_output')">SNS用への出力</button>
+            </li>
+    
+            <li>
+                <button onclick="submitForm('/delete_history')">会話履歴の削除</button>
+            </li>
+        </ul>
+    </div>
+
+    <h1>Welcome, Admin!</h1>
+    <p>Username: {{ name }}</p>
+    <p>User ID: {{ user_id }}</p>
+    <p>This is the admin dashboard.</p>
+    <a href="/logout">Logout</a>
+
+    <script src="/static/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI with Jinja2</title>
+    <link href="{{ url_for('static', path='css/styles.css') }}" rel="stylesheet">
+</head>
+<body>
+    <textarea id="text">
+        アドベントカレンダーは、クリスマスまでの日数を数えるためのカレンダー。
+        イエス・キリストの降誕を待ち望む24日間、窓を毎日ひとつずつ開けていき、
+        中には、イラストや物語の一編、甘いお菓子、小さな贈り物などが入っている。
+        </textarea>
+        <button id="speak-btn">再生</button>
+        <button id="cancel-btn">停止</button>
+        <button id="pause-btn">一時停止</button>
+        <button id="resume-btn">再開</button>
+        
+        <script>
+            const text      = document.querySelector('#text')
+            const speakBtn  = document.querySelector('#speak-btn')
+            const cancelBtn = document.querySelector('#cancel-btn')
+            const pauseBtn  = document.querySelector('#pause-btn')
+            const resumeBtn = document.querySelector('#resume-btn')
+            
+            speakBtn.addEventListener('click', function() {
+                // 発言を作成
+                const uttr = new SpeechSynthesisUtterance(text.value)
+                // 発言を再生 (発言キュー発言に追加)
+                speechSynthesis.speak(uttr)
+            })
+            cancelBtn.addEventListener('click', function() {
+                // 再生停止 (発言キューをクリアして止まる)
+                speechSynthesis.cancel()
+            })
+            pauseBtn.addEventListener('click', function() {
+                // 一時停止 (発言キューを保持して止まる)
+                speechSynthesis.pause()
+            })
+            resumeBtn.addEventListener('click', function() {
+                // 再生再開 (一時停止を解除)
+                speechSynthesis.resume()
+            })
+        </script>        
+</body>
+</html>
