@@ -1,0 +1,158 @@
+body {
+    height: 100vh; /* ビューポート全体の高さ */
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column; /* ヘッダーとフォームを縦に並べる */
+    align-items: center;
+    font-family: serif,monospace,sans-serif, "MS Pゴシック",;
+}
+
+/* 朝のスタイル */
+body.morning {
+    background: linear-gradient(to bottom, #4c68d7, #8ecdf7);
+}
+
+/* 昼のスタイル */
+body.afternoon {
+    background: linear-gradient(to bottom, #4f64a8, #88d4dd);
+}
+
+/* 夜のスタイル */
+body.evening {
+    background: linear-gradient(to bottom, #7270ea, #945f62);
+}
+
+/* ヘッダー（ハンバーガーメニュー） */
+.header {
+    width: 100%;
+    background-color: #2e3d58;
+    height: 60px; /* 固定高さに変更 */
+    display: flex;
+    align-items: center;
+    padding: 0 20px; /* 固定パディングに変更 */
+    box-sizing: border-box; /* パディングを含めた幅・高さ計算に */
+}
+
+.app_titel {
+    padding: 0 20px;
+}
+
+/* .gennba クラスで「現場直送！」のスタイルを指定 */
+.gennba {
+    font-size: 1.5rem; /* 「現場直送！」の文字サイズ */
+    font-weight: bold; /* 太字にする */
+    margin: 0;
+    padding: 0;
+    color: #fff;
+}
+
+/* .todokerukun クラスで「声届けるくん」のスタイルを指定 */
+.todokerukun {
+    font-size: 1rem; /* 「声届けるくん」の文字サイズ */
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    display: inline-block;
+}
+
+.footer{
+    width: 100%;
+    background-color: #2e3d58;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* コンテンツを中央揃え */
+    padding: 0 20px;
+    box-sizing: border-box;
+    position: fixed; /* ページの下に固定 */
+    bottom: 0px; /* ページの最下部に配置 */
+}
+
+/* ハンバーガーメニュー */
+.hamburger {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    position: relative;
+    display: inline-block;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    left: 0;
+}
+
+.hamburger::before {
+    top: -8px; /* 間隔調整 */
+}
+
+.hamburger::after {
+    top: 8px; /* 間隔調整 */
+}
+
+.speace{
+    margin: 50px;
+}
+
+.formbox {
+    padding: 0.5em 1em 3em;
+    margin: 2em auto;
+    width: 85%;
+    font-weight: bold;
+    color: #000; /* 文字色 */
+    background: #c0c6c9;
+    border: solid 3px #c0c6c9; /* 線 */
+    border-radius: 10px; /* 角の丸み */
+    position: relative; /* ボタンを重ねるために position を relative に設定 */
+    box-sizing: border-box;
+}
+.formbox p{
+    margin: 0; 
+    padding: 0;
+}
+
+input {
+    border: none;
+    border-radius: 3px;
+}
+
+.input_name{
+    font-family: monospace,sans-serif, "MS Pゴシック";
+}
+
+.input_speace{
+    margin: 5px;
+}
+
+.btn-login {
+    background-color: #2e3d58; /* ボタンの背景色 */
+    color: white; /* 文字の色 */
+    display: block;
+    padding: 10px 30px; /* ボタン内の余白 */
+    width: 85%; /* フォームボックスと同じ幅に */
+    border: none; /* ボーダーを消す */
+    border-radius: 10px; /* 角を丸くする */
+    font-size: 16px; /* フォントサイズ */
+    cursor: pointer; /* マウスホバー時にポインタを表示 */
+    margin: -70px auto;  /* ボタンを少し上に移動して重ねる */
+    position: relative;
+    z-index: 1; /* ボタンをフォームボックスより前面に表示 */
+    box-sizing: border-box;
+    text-align: center; /* 子要素の中央揃え */
+}
+
+.btn-login:hover {
+    background-color: #2e3d58; /* ホバー時の背景色 */
+    opacity: 0.8; /* ホバー時の透明度 */
+}
+
+@media screen and (max-width: 480px) {
+
+}
