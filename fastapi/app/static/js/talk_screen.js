@@ -97,6 +97,164 @@ micButton.addEventListener('click', function() {
         });
 });
 
+const SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
+const SpeechGrammarList = window.SpeechGrammarList || webkitSpeechGrammarList;
+const SpeechRecognitionEvent = window.SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
+
+if (!SpeechRecognition) {
+    alert("このブラウザは音声認識をサポートしていません。");
+}
+
+const recognition = new webkitSpeechRecognition();
+recognition.lang = "ja";
+recognition.continuous = true;
+
+let isRecognizing = false;  // 音声認識が開始されているかを追跡
+let recognitionTimeout = null; // タイマーIDを保存する変数
+let lastRecognizedText = ""; // 最後に送信したテキストを記録する変数
+
+recognition.onresult = ({ results }) => {
+    const output = document.querySelector(".output");
+    const recognizedText = results[0][0].transcript;
+    output.textContent = recognizedText;
+
+    // テキストデータをFastAPIに送信（前回と異なる場合のみ）
+    if (recognizedText !== lastRecognizedText) {
+        sendTextToFastAPI(recognizedText);
+        lastRecognizedText = recognizedText; // 最新のテキストを記録
+    }
+};
+
+// 音声認識が終了したときにフラグをリセット
+recognition.onend = () => {
+    isRecognizing = false;
+    clearTimeout(recognitionTimeout); // タイマーをクリア
+};
+
+// 音声認識を開始
+const startButton = document.querySelector(".start");
+startButton.addEventListener("click", () => {
+    if (!isRecognizing) {
+        recognition.start();
+        isRecognizing = true;
+
+        // 10秒後に自動的に音声認識を停止
+        recognitionTimeout = setTimeout(() => {
+            if (isRecognizing) {
+                recognition.stop();
+                isRecognizing = false;
+            }
+        }, 10000); // 10000ミリ秒 = 10秒
+    } else {
+        console.log("音声認識はすでに開始されています。");
+    }
+});
+
+// 音声認識を停止
+const stopButton = document.querySelector(".stop");
+stopButton.addEventListener("click", () => {
+    if (isRecognizing) {
+        recognition.stop();
+        isRecognizing = false;
+        clearTimeout(recognitionTimeout); // タイマーをクリア
+    }
+});
+
+// FastAPIにテキストを送信する関数
+function sendTextToFastAPI(text) {
+    fetch('/process_text', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: text }),
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('テキストが正常に送信されました');
+        } else {
+            console.log('テキスト送信に失敗しました');
+        }
+    })
+    .catch(error => {
+        console.log('エラーが発生しました:', error);
+    });
+}
+
+
+// const recognition = new webkitSpeechRecognition();
+// recognition.lang = "ja";
+// recognition.continuous = true;
+
+// let isRecognizing = false;  // 音声認識が開始されているかを追跡
+// let recognitionTimeout = null; // タイマーIDを保存する変数
+
+// recognition.onresult = ({ results }) => {
+//     const output = document.querySelector(".output");
+//     const recognizedText = results[0][0].transcript;
+//     output.textContent = recognizedText;
+
+//     // テキストデータをFastAPIに送信
+//     sendTextToFastAPI(recognizedText);
+// };
+
+// // 音声認識が終了したときにフラグをリセット
+// recognition.onend = () => {
+//     isRecognizing = false;
+//     clearTimeout(recognitionTimeout); // タイマーをクリア
+// };
+
+// // 音声認識を開始
+// const startButton = document.querySelector(".start");
+// startButton.addEventListener("click", () => {
+//     if (!isRecognizing) {
+//         recognition.start();
+//         isRecognizing = true;
+
+//         // 10秒後に自動的に音声認識を停止
+//         recognitionTimeout = setTimeout(() => {
+//             if (isRecognizing) {
+//                 recognition.stop();
+//                 isRecognizing = false;
+//             }
+//         }, 10000); // 10000ミリ秒 = 10秒
+//     } else {
+//         console.log("音声認識はすでに開始されています。");
+//     }
+// });
+
+// // 音声認識を停止
+// const stopButton = document.querySelector(".stop");
+// stopButton.addEventListener("click", () => {
+//     if (isRecognizing) {
+//         recognition.stop();
+//         isRecognizing = false;
+//         clearTimeout(recognitionTimeout); // タイマーをクリア
+//     }
+// });
+
+// // FastAPIにテキストを送信する関数
+// function sendTextToFastAPI(text) {
+//     fetch('/process_text', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({ text: text }),
+//     })
+//     .then(response => {
+//         if (response.ok) {
+//             console.log('テキストが正常に送信されました');
+//         } else {
+//             console.log('テキスト送信に失敗しました');
+//         }
+//     })
+//     .catch(error => {
+//         console.log('エラーが発生しました:', error);
+//     });
+// }
+
+
 function logout() {
     const token = localStorage.getItem('token');
     fetch('/logout', {

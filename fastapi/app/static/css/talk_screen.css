@@ -105,6 +105,13 @@ body.evening {
     background-color: #f7c359;
 }
 
+.button-container {
+    display: flex;
+    gap: 10px; /* Space between the buttons */
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
 /* フッター */
 .footer {
     width: 100%;
@@ -115,6 +122,32 @@ body.evening {
     grid-template-columns: auto auto auto auto;
     /* justify-content: center; 
     align-items: center;  */
+}
+
+/* Button styles */
+button.start, button.stop {
+    /* padding: 10px 20px; */
+    width: 80px;
+    height: 50px;
+    font-size: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+button.stop {
+    background-color: #f44336;
+}
+
+button.start:hover {
+    background-color: #45a049;
+}
+
+button.stop:hover {
+    background-color: #e53935;
 }
 
 /* 黄緑色の大きな丸 (外側の丸) */
@@ -131,6 +164,19 @@ body.evening {
 #AudioWave {
     width: 100%;
     height: 100%;
+}
+
+/* Output text styles */
+.output {
+    font-size: 18px;
+    color: #333;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    border-top: 1px solid #ddd;
+    margin-top: 10px;
+    background-color: #fafafa;
+    border-radius: 5px;
 }
 
 

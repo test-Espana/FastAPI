@@ -28,6 +28,19 @@
             {% endif %}
         {% endfor %}
     </div>
+    <!-- 音声認識を開始するボタン -->
+    <!-- <button class="start">音声認識開始</button> -->
+
+    <!-- 音声認識を停止するボタン -->
+    <!-- <button class="stop">音声認識停止</button> -->
+
+    <!-- 認識された結果を表示するための要素 -->
+    <!-- <div class="output">ここに音声認識の結果が表示されます</div> -->
+    <div class="button-container">
+        <button class="start">音声認識開始</button>
+        <button class="stop">音声認識停止</button>
+    </div>
+    <div class="output">ここに音声認識の結果が表示されます</div>
     
     <div class="footer">
         <div></div>
@@ -35,6 +48,7 @@
             <canvas id="AudioWave" width="150" height="150"></canvas>
         </div>
         <div></div>
+        
     </div>
 
     <script src="/static/js/talk_screen.js"></script>
