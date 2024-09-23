@@ -11,3 +11,5 @@ librosa
 soundfile
 audioread
 pyaudio
+boto3
+python-dotenv

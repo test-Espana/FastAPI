@@ -7,6 +7,8 @@ RUN apt-get update && apt-get install -y \
     portaudio19-dev \
     gcc \
     && rm -rf /var/lib/apt/lists/*
+    pip install boto3
+    pip install python-dotenv
 
 WORKDIR /app
 
