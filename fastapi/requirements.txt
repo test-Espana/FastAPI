@@ -13,3 +13,4 @@ audioread
 pyaudio
 boto3
 python-dotenv
+fastapi_sessions

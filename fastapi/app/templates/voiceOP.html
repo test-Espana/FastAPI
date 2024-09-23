@@ -1,0 +1,31 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>FastAPI with Jinja2</title>
+	<link href="{{ url_for('static', path='css/styles.css') }}" rel="stylesheet">
+</head>
+
+<body>
+	<!-- <h1>okubojs</h1> -->
+
+	<!-- ボタンをクリックするとJavaScriptが動作 -->
+	<!-- <button onclick="showMessage()">メッセージを表示</button> -->
+
+	<!-- JavaScriptのメッセージを表示するための空の段落 -->
+	<!-- <p id="message"></p> -->
+
+	<input type="text" id="text" name="text" value="吾輩は猫である。" placeholder="読み上げたいテキストを入力してください" />
+	<button onclick="readAloud()">読み上げる</button>
+
+	<p id="message"></p>
+	<p>上記テキストを読み上げます。<br>「読み上げる」ボタンをクリックしてください。</p>
+
+	<script src="/static/js/script2.js"></script>
+
+</body>
+
+</html>
