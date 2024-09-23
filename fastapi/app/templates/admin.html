@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdminControl</title>
+</head>
+<body>
+    <div class="sidebar"> <!-- サイドメニューを囲むdivにクラスを追加 -->
+        <ul>
+            <li>
+                <div class="date_box">
+                    <h1>期間指定</h1>
+                    <h4>操作を適応する期間を指定</h4>
+                    <form id="dateForm" action="/dateForm" method="post">
+                        <label for="startDate">開始日:</label>
+                        <input type="date" id="startDate" name="startDate"><br><br>
+                        <label for="endDate">終了日:</label>
+                        <input type="date" id="endDate" name="endDate"><br><br>
+                    </form>
+                </div>
+            </li>
+
+            <li>
+                <button onclick="submitForm('/download_report')">報告書の出力/ダウンロード</button>
+            </li>
+
+            <li>
+                <button onclick="submitForm('/sns_output')">SNS用への出力</button>
+            </li>
+
+            <li>
+                <button onclick="submitForm('/delete_history')">会話履歴の削除</button>
+            </li>
+        </ul>
+    </div>
+
+    
+    <script>
+        document.getElementById("dateFormMain").addEventListener("submit",async function(event) {
+            event.preventDefault(); // フォームのデフォルトの動作を防ぐ
+
+            const formData = new FormData(this);
+
+            const response = await fetch("/dateForm", {
+                method: "POST",
+                body: formData
+            });
+
+            const result = await response.json();
+
+            document.getElementById("result").textContent = '選択した期間: ${resut.start_date} から ${result.end_date}';
+        });
+
+        function submitForm(action) {
+            const form = document.getElementById('dateForm');
+            const startDate = form.startDate.value;
+            const endDate = form.endDate.value;
+
+            // 日付をクエリパラメータとして指定して遷移
+            const url = `${action}?startDate=${startDate}&endDate=${endDate}`;
+            window.location.href = url;
+        }
+
+    </script>
+</body>
+</html>
