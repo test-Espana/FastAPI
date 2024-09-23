@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AdminControl</title>
-    <link href="{{ url_for('static', path='css/admin.css') }}" rel="stylesheet">
+    <link href="../static/css/admin.css" rel="stylesheet">
 </head>
 <body>
     <div class="sidebar"> <!-- サイドメニューを囲むdivにクラスを追加 -->
         <ul>
             <li>
                 <div class="date_box">
+                    <div id="date-box-background"></div>
                     <h1>期間指定</h1>
                     <h4>操作を適応する期間を指定</h4>
                     <form id="dateForm" action="/dateForm" method="post">
@@ -22,25 +23,26 @@
                 </div>
             </li>
     
-            <li>
+            <li class="botton-back">
                 <button onclick="submitForm('/download_report')">報告書の出力/ダウンロード</button>
             </li>
     
-            <li>
+            <li class="botton-back">
                 <button onclick="submitForm('/sns_output')">SNS用への出力</button>
             </li>
     
-            <li>
+            <li class="botton-back">
                 <button onclick="submitForm('/delete_history')">会話履歴の削除</button>
             </li>
         </ul>
     </div>
-
-    <h1>Welcome, Admin!</h1>
-    <p>Username: {{ name }}</p>
-    <p>User ID: {{ user_id }}</p>
-    <p>This is the admin dashboard.</p>
     <a href="/logout">Logout</a>
+    <section class="admin-section">
+        <div class="pleview">
+
+        </div>
+        <button id="download-button">ダウンロード</button>
+    </section>
 
     <script src="/static/js/admin.js"></script>
 </body>
