@@ -168,3 +168,8 @@ def sns_output(startDate: date = Query(...), endDate: date = Query(...)):
 @app.get("/delete_history")
 def delete_history(startDate: date = Query(...), endDate: date = Query(...)):
     return {"admin": "delete_history", "startDate": startDate, "endDate": endDate}
+
+@app.get("/voiceop")
+def show_voice_output(request: Request):
+    context = {"request": request, "message": "Hello voice"}
+    return templates.TemplateResponse("voiceOP.html", context)
