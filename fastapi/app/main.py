@@ -3,6 +3,7 @@ from fastapi import FastAPI, Request, Form, Depends, Query,HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.orm import Session
+from dotenv import load_dotenv
 
 from fastapi.responses import HTMLResponse, FileResponse,JSONResponse, RedirectResponse
 # import requests
@@ -12,7 +13,9 @@ from schemas import UserLogin
 
 from db import get_db
 from model import User
-# from login import process_login   
+from login import process_login   # login.pyから関数をインポート
+from check_aws_connections import check_amazon_lex, check_amazon_bedrock, check_amazon_dynamodb # check_aws_connections.pyから関数をインポート
+  
 from admin import dateExtraction
 from typing import Optional, Dict
 
@@ -21,7 +24,6 @@ from db import get_db
 from schemas import UserLogin, LogoutRequest
 from crud import get_user_by_username,delete_user_session
 
-# from voice import synthesize_voice
 from voice_utils import create_voice_from_text
 
 
@@ -108,6 +110,34 @@ def submit_login(request: Request, username: str = Form(...), password: str = Fo
     result = process_login(user, db, request)
     return result
     
+
+#バックエンド側で音声処理を行なっていた名残。記録として残しておく
+# @app.get("/get_voice", response_class=HTMLResponse)
+# async def get_form(request: Request):
+#     return templates.TemplateResponse("voice.html", {"request": request})
+# @app.post("/create_voice_from_text/")
+# async def create_voice_from_text_endpoint(text: str = Form(...)):
+#     return await create_voice_from_text(text)
+
+# AWS接続確認エンドポイント
+@app.get("/check")
+def check_aws_connections():
+    lex_result = check_amazon_lex()
+    bedrock_result = check_amazon_bedrock()
+    dynamodb_result = check_amazon_dynamodb()
+    
+    results = {
+        "Amazon Lex": lex_result,
+        "Amazon Bedrock": bedrock_result,
+        "Amazon DynamoDB": dynamodb_result
+    }
+    
+    all_ok = all(service["status"] == "success" for service in results.values())
+    
+    if all_ok:
+        return {"status": "ok", "services": results}
+    else:
+        return {"status": "error", "services": results}
 
 conversations = [
     {"sender": "AI", "message": "こんにちは！今日は晴れていますが、少し風が強いです。"},
