@@ -48,6 +48,7 @@ button.selected {
 /* サイドメニュー内のリストのスタイル */
 .sidebar ul {
     list-style-type: none;
+    align-items: center;
     margin: 20px;
     padding: 0;
 }
@@ -60,21 +61,21 @@ button.selected {
     content: "";
     position: absolute;
     margin: 0;
-    padding: 1.8rem 9.7rem;
+    padding: 1.8rem 8.4rem;
     background-color: #ffffff;
     border-radius: 1rem;
     z-index: -1;
-    transform: translate(-1px, -2px); /* 少し位置をずらす */
+    transform: translate(-6px, -2px); /* 少し位置をずらす */
 }
 
 .botton-back::after {
     content: "";
     position: absolute;
-    padding: 1.8rem 9.7rem;
+    padding: 1.8rem 8.4rem;
     background-color: rgba(0, 0, 0, 0.8);
     border-radius: 1rem;
     z-index: -2; /* さらに背面に配置 */
-    transform: translate(-19.2rem, 0.17rem); /* さらに少し位置をずらす */
+    transform: translate(-16.6rem, 0.17rem); /* さらに少し位置をずらす */
 }
 
 .sidebar ul li {
@@ -90,7 +91,7 @@ button.selected {
 
 /* ボタンのスタイル */
 .sidebar button {
-    width: 100%; /* サイドメニュー内でボタンを全幅に */
+    width: 85%; /* サイドメニュー内でボタンを全幅に */
     padding: 15px;
     margin: 0;
     background-color: #E5E5E5;
@@ -172,18 +173,43 @@ button.selected {
 }
 
 .admin-section {
-    display: block;
-    margin-top: 7rem;
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    height: 70vh;
+    width: 50vw;
+    gap : 4rem 2rem;
+    margin-top: 8rem;
     margin-left: calc(30%); /* 親の横幅の中心+50px */
     margin-right: calc(2%);
-    padding: 16rem 20rem;
     background: linear-gradient(to right, rgba(232,215,182,1), 60%, rgba(254, 148, 208, 0.3));
     border-radius: 1rem;
-    align-items: flex-end;
 }
 .preview {
-    display: block;
-    margin-top: 7rem;
-    padding: 15rem 10rem;
-    background-color: #ffffff;
+    grid-column: 1/2;
+    grid-row: 1/4;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 2rem 6rem;
+    border-radius: 1rem;
+    margin: 0;
+}
+
+#download-button {
+    grid-column: 2/3;
+    grid-row: 3/3;
+    width: 100%; /* サイドメニュー内でボタンを全幅に */
+    padding: 1rem 1rem;
+    margin: 0;
+    background-color: #E5E5E5;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-bottom: 1px solid #ffffff33; /* ボタン間のボーダー */
+    text-align: center;
+}
+
+.admin-section button:hover {
+    background: linear-gradient(135deg, #70a1e4, #d9b5d6); /* ボタンがホバーされた時の背景色 */
 }
