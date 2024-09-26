@@ -1,7 +1,11 @@
 body {
     height: 100vh; /* ビューポート全体の高さ */
     margin: 0;
-    background-image: url("/static/images/adminbd1.png");
+    background-image: url("../images/adminbd1.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column; /* ヘッダーとフォームを縦に並べる */
@@ -15,6 +19,7 @@ li {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    position: relative; /* 擬似要素の位置を管理するための基準を作る */
 }
 
 /* メニュー項目を選択した状態のスタイル（任意で追加可能） */
@@ -30,7 +35,7 @@ button.selected {
     top: 0; /* 上端から始める */
     width: 350px; /* サイドメニューの幅 */
     height: 100vh; /* ビューポート全体の高さ */
-    background-color: #e6e6e6; /* サイドメニューの背景色 */
+    background-color: #CCCCCC; /* サイドメニューの背景色 */
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -43,28 +48,60 @@ button.selected {
 /* サイドメニュー内のリストのスタイル */
 .sidebar ul {
     list-style-type: none;
+    align-items: center;
     margin: 20px;
     padding: 0;
 }
 
+.botton-back{
+    position: relative;
+}
+
+.botton-back::before {
+    content: "";
+    position: absolute;
+    margin: 0;
+    padding: 1.8rem 8.4rem;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    z-index: -1;
+    transform: translate(-6px, -2px); /* 少し位置をずらす */
+}
+
+.botton-back::after {
+    content: "";
+    position: absolute;
+    padding: 1.8rem 8.4rem;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 1rem;
+    z-index: -2; /* さらに背面に配置 */
+    transform: translate(-16.6rem, 0.17rem); /* さらに少し位置をずらす */
+}
+
 .sidebar ul li {
-    margin-bottom: 15px; /* 下に15pxの余白を追加 */
+    margin-bottom: 4rem; /* 下に15pxの余白を追加 */
+}
+
+
+
+.sidebar>ul>li>button {
+    text-align: center;
 }
 
 
 /* ボタンのスタイル */
 .sidebar button {
-    width: 100%; /* サイドメニュー内でボタンを全幅に */
+    width: 85%; /* サイドメニュー内でボタンを全幅に */
     padding: 15px;
     margin: 0;
-    background-color: #fff;
+    background-color: #E5E5E5;
     color: #000;
     border: none;
     border-radius: 10px;
-    text-align: left; /* テキストを左寄せ */
     font-size: 1.1rem;
     cursor: pointer;
     border-bottom: 1px solid #ffffff33; /* ボタン間のボーダー */
+    text-align: center;
 }
 
 /* ボタンホバー時のスタイル */
@@ -79,20 +116,100 @@ button.selected {
 } */
 
 .date_box {
-    padding: 0.5em 1em;
-    margin: 3em 0;
+    position: relative;
+    padding: 1rem 1rem;
+    margin: 2rem 0rem;
     color: #2c2c2f;
-    border-radius: 10px;
-    background: #fff;
+    border-radius: 1rem;
+    background: #E5E5E5;
+    text-align: center;
+    align-items: center;
+}
+.date_box::after {
+    content: '';
+    position: absolute;
+    /* top: 63px; 位置を少しずらす */
+    top: 0;
+    left: 0;
+    padding: 9rem 9.7rem;
+    background-color: #ffffff; /* 色を変更 */
+    border-radius: 1rem;
+    z-index: -1;
+    transform: translate(-0.2rem, -1.2rem); /* さらに少し位置をずらす */
+}
+.date_box::before {
+    content: '';
+    position: absolute;
+    /* top: 63px; 位置を少しずらす */
+    padding: 9rem 9.7rem;
+    background-color: #3F3F3F; /* 色を変更 */
+    border-radius: 1rem;
+    z-index: -2;
+    transform: translate(-9.5rem, -1.5rem); /* さらに少し位置をずらす */
 }
 .date_box p {
+    position: relative;
     margin: 0; 
     padding: 0;
+    z-index: 9;
+}
+#date-box-background {
+    position: absolute;
+    padding: 3.15rem 9.67rem;
+    background: linear-gradient(to left, #7BC1FB, 30%, #A9E3DD, 90%, #E0E7E4);
+    border-radius: 1rem 1rem 0rem 0rem;
+    z-index: 9;
+    transform: translate(-0.95rem, -1.95rem); /* さらに少し位置をずらす */
 }
 
 .date_box h1 {
-    border-bottom: 2px solid #70a1e4; /* 下に2pxの黒いボーダー */
-    padding-bottom: 0px; /* ボーダーとテキストの間に余白を追加 */
-    margin-bottom: 0px; /* 下の要素との余白 */
+    position: relative;
+    font-size: 3.5rem;
+    /* background: linear-gradient(to left, #7BC1FB, 30%, #A9E3DD, 90%, #E0E7E4); */
+    bottom: 1rem;
+    margin-top: -0.5rem;
+    z-index: 10;
+    transform: translate(0rem -8rem);
 }
 
+.admin-section {
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    height: 70vh;
+    width: 50vw;
+    gap : 4rem 2rem;
+    margin-top: 8rem;
+    margin-left: calc(30%); /* 親の横幅の中心+50px */
+    margin-right: calc(2%);
+    background: linear-gradient(to right, rgba(232,215,182,1), 60%, rgba(254, 148, 208, 0.3));
+    border-radius: 1rem;
+}
+.preview {
+    grid-column: 1/2;
+    grid-row: 1/4;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 2rem 6rem;
+    border-radius: 1rem;
+    margin: 0;
+}
+
+#download-button {
+    grid-column: 2/3;
+    grid-row: 3/3;
+    width: 100%; /* サイドメニュー内でボタンを全幅に */
+    padding: 1rem 1rem;
+    margin: 0;
+    background-color: #E5E5E5;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-bottom: 1px solid #ffffff33; /* ボタン間のボーダー */
+    text-align: center;
+}
+
+.admin-section button:hover {
+    background: linear-gradient(135deg, #70a1e4, #d9b5d6); /* ボタンがホバーされた時の背景色 */
+}
